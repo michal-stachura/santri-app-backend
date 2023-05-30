@@ -1,4 +1,4 @@
-exclude: '^docs/|/migrations/'
+exclude: "^docs/|/migrations/"
 default_stages: [commit]
 
 repos:
@@ -17,18 +17,11 @@ repos:
       - id: check-docstring-first
       - id: detect-private-key
 
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.0-alpha.9-for-vscode
-    hooks:
-      - id: prettier
-        args: ['--tab-width', '2', '--single-quote']
-        exclude: 'santri_app/templates/'
-
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: '1.13.0'
+    rev: "1.13.0"
     hooks:
       - id: django-upgrade
-        args: ['--target-version', '4.1']
+        args: ["--target-version", "4.1"]
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.4.0
