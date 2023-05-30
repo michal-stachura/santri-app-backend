@@ -1,7 +1,7 @@
 # PostgreSQL
 # ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
-POSTGRES_PORT=5432
-POSTGRES_DB=santri_app
-POSTGRES_USER=NtrXfxRRdMpBqCTZfqHrlcHyeVhGrrBF
-POSTGRES_PASSWORD=1XK7f53q9ABH7gYznOGEKAfKpuSzBhumpJVdk2UyCmAetm7wHLs8penWpcVDuF6v
+POSTGRES_HOST = postgres
+POSTGRES_PORT = 5432
+POSTGRES_DB = sapp
+POSTGRES_USER = sapp_usr
+POSTGRES_PASSWORD = sapp_pass
