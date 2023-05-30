@@ -64,6 +64,7 @@ DJANGO_APPS = [
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
+    "corsheaders",
     "crispy_forms",
     "crispy_bootstrap5",
     "allauth",
@@ -71,7 +72,6 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "rest_framework",
     "rest_framework.authtoken",
-    "corsheaders",
     "drf_spectacular",
 ]
 
@@ -283,7 +283,8 @@ REST_FRAMEWORK = {
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
+# CORS_URLS_REGEX = r"^/api/.*$"
+CORS_URLS_REGEX = r"^.*$"
 
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings

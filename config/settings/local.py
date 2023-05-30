@@ -61,3 +61,4 @@ INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 # Your stuff...
 # ------------------------------------------------------------------------------
 ENV_NAME = "local"
+CORS_ALLOWED_ORIGINS = ["http://localhost:8080"]
