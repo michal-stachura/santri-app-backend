@@ -1,0 +1,51 @@
+version: '3'
+
+volumes:
+  santri_app_local_postgres_data: {}
+  santri_app_local_postgres_data_backups: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: santri_app_local_django
+    container_name: santri_app_local_django
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - '8000:8000'
+    command: /start
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: santri_app_production_postgres
+    container_name: santri_app_local_postgres
+    volumes:
+      - santri_app_local_postgres_data:/var/lib/postgresql/data
+      - santri_app_local_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.local/.postgres
+
+  docs:
+    image: santri_app_local_docs
+    container_name: santri_app_local_docs
+    build:
+      context: .
+      dockerfile: ./compose/local/docs/Dockerfile
+    env_file:
+      - ./.envs/.local/.django
+    volumes:
+      - ./docs:/docs:z
+      - ./config:/app/config:z
+      - ./santri_app:/app/santri_app:z
+    ports:
+      - '9000:9000'
+    command: /start-docs
