@@ -62,3 +62,12 @@ INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 # ------------------------------------------------------------------------------
 ENV_NAME = "local"
 CORS_ALLOWED_ORIGINS = ["http://localhost:8080"]
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("santri_app_local_redis", 6379)],
+        },
+    },
+}
+# https://channels.readthedocs.io/en/latest/tutorial/part_2.html

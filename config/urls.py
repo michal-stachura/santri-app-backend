@@ -18,6 +18,9 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# CHANNELS
+urlpatterns += [path("chat/", include("santri_app.chat.urls"))]
+
 # API URLS
 urlpatterns += [
     # API base url

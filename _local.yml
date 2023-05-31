@@ -22,8 +22,6 @@ services:
     ports:
       - "8000:8000"
     command: /start
-    networks:
-      - santri_network
 
   postgres:
     build:
@@ -36,8 +34,6 @@ services:
       - santri_app_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
-    networks:
-      - santri_network
 
   docs:
     image: santri_app_local_docs
@@ -54,16 +50,9 @@ services:
     ports:
       - "9000:9000"
     command: /start-docs
-    networks:
-      - santri_network
 
   redis:
     image: redis:7
     container_name: santri_app_local_redis
     ports:
       - "6379:6379"
-    networks:
-      - santri_network
-
-networks:
-  santri_network:
