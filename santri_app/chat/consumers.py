@@ -1,10 +1,19 @@
 import json
 from urllib.parse import parse_qs
 
+from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.layers import get_channel_layer
 from django.contrib.auth.models import AnonymousUser
 from rest_framework.authtoken.models import Token
+
+
+class GroupSend:
+    def send(self, group_name, message):
+        channel_layer = get_channel_layer()
+
+        async_to_sync(channel_layer.group_send)(group_name, message)
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -35,6 +44,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 await self.accept()
                 # Join room group
                 await self.channel_layer.group_add(self.room_group_name, self.channel_name)
+                print(self.room_group_name)
+                print(self.channel_name)
             else:
                 await self.close()
 
