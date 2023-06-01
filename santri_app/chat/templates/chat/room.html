@@ -16,11 +16,11 @@
       );
 
       const chatSocket = new WebSocket(
-        "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
-      );
-
-      console.log(
-        "ws://" + window.location.host + "/ws/chat/" + roomName + "/"
+        "ws://" +
+          window.location.host +
+          "/ws/chat/" +
+          roomName +
+          "/?token=2b17b88a41de507e4c1196caced14d3adb62e7d0"
       );
 
       chatSocket.onmessage = function (e) {
