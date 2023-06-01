@@ -81,6 +81,7 @@ LOCAL_APPS = [
     "santri_app.users",
     # Your stuff: custom apps go here
     "santri_app.chat",
+    "santri_app.dashboard",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
