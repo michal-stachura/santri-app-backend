@@ -1,5 +1,4 @@
 import json
-from urllib.parse import parse_qs
 
 from asgiref.sync import async_to_sync
 from channels.db import database_sync_to_async
@@ -18,33 +17,28 @@ class GroupSend:
 
 class DashboardConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
-    def __get_user(self, email):
+    def __get_user(self):
         try:
             user_token = Token.objects.get(key=self.dashboard_id)
             user = user_token.user
-            return user if user.email == email else AnonymousUser()
+            return user
         except Token.DoesNotExist:
             return AnonymousUser()
 
-    async def connect(self):
-        query_string = self.scope["query_string"].decode()
-        params = parse_qs(query_string)
-        email = params.get("email", None)
-
-        self.dashboard_id = self.scope["url_route"]["kwargs"]["token"]
+    async def __set_dashboard_group(self, token):
+        self.dashboard_id = token
         self.dashboard_group_name = f"dashboard_{self.dashboard_id}"
 
-        if not email:
-            await self.close()
+        user = await self.__get_user()
+        if user.is_authenticated:
+            self.scope["user"] = user
+            await self.channel_layer.group_add(self.dashboard_group_name, self.channel_name)
         else:
-            email = email[0]
-            user = await self.__get_user(email)
-            if user.is_authenticated:
-                self.scope["user"] = user
-                await self.accept()
-                await self.channel_layer.group_add(self.dashboard_group_name, self.channel_name)
-            else:
-                await self.close()
+            print("close connection")
+            self.close()
+
+    async def connect(self):
+        await self.accept()
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.dashboard_group_name, self.channel_name)
@@ -52,16 +46,18 @@ class DashboardConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data):
         data = json.loads(text_data)
-        message = data["message"]
+
+        if "token" in data:
+            # Triggered by dashboardSocket.value.onopen
+            await self.__set_dashboard_group(data["token"])
 
         # Send to dashboard group
         await self.channel_layer.group_send(
-            self.dashboard_group_name, {"type": "dashboard.message", "message": message}
+            self.dashboard_group_name,
+            {"type": "dashboard.message", "data": data},
         )
 
     # Receive message from dashboard group
     async def dashboard_message(self, event):
-        message = event["message"]
-
         # Send message to Websocket
-        await self.send(text_data=json.dumps({"message": message}))
+        await self.send(text_data=json.dumps(event))
