@@ -137,3 +137,17 @@ SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
 ]
 # Your stuff...
 # ------------------------------------------------------------------------------
+ENV_NAME = "production"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                {
+                    "address": "/home/santri-dev/domains/app.santri.it/redis.sock",
+                    "db": 1,
+                }
+            ],
+        },
+    },
+}
