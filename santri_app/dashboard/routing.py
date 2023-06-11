@@ -1,7 +1,9 @@
 from django.urls import path
 
-from . import consumers
 
-websocket_urlpatterns = [
-    path("ws/dashboard/", consumers.DashboardConsumer.as_asgi()),
-]
+def get_websocket_urlpatterns():
+    from . import consumers
+
+    return [
+        path("ws/dashboard/", consumers.DashboardConsumer.as_asgi()),
+    ]
