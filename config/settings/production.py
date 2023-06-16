@@ -143,6 +143,7 @@ SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
 # Your stuff...
 # ------------------------------------------------------------------------------
 ENV_NAME = "production"
+CORS_ALLOWED_ORIGINS = ["http://localhost:8080"]
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
