@@ -46,6 +46,7 @@ class DashboardConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data):
         data = json.loads(text_data)
+        print(data)
 
         if "token" in data:
             # Triggered by dashboardSocket.value.onopen
