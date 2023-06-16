@@ -150,7 +150,7 @@ CHANNEL_LAYERS = {
         "CONFIG": {
             "hosts": [
                 {
-                    "address": "/home/santri-dev/domains/app.santri.it/redis.sock",
+                    "address": env("APP_REDIS_URL", default=None),
                     "db": 1,
                 }
             ],
