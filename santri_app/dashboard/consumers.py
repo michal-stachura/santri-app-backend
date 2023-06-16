@@ -38,6 +38,7 @@ class DashboardConsumer(AsyncWebsocketConsumer):
             self.close()
 
     async def connect(self):
+        print("connect")
         await self.accept()
 
     async def disconnect(self, close_code):
