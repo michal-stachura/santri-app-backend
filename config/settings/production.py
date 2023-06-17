@@ -148,11 +148,11 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
+            "ALLOWED_HOSTS": ["localhost", "api.santri.it:62391"],
             "hosts": [
                 {
                     "address": env("APP_REDIS_URL", default=None),
                     "password": env("APP_REDIS_PASSWORD", default=None),
-                    "ALLOWED_HOSTS": ["localhost", "api.santri.it:62391"],
                 }
             ],
         },
