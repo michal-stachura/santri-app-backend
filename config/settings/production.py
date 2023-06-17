@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.realpath("__file__"))
 SECRET_KEY = env("APP_DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 # ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["example.com"])
-ALLOWED_HOSTS = ["api.santri.it"]
+ALLOWED_HOSTS = ["api.santri.it", "localhost"]
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -148,7 +148,6 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "ALLOWED_HOSTS": ["localhost", "api.santri.it:62391"],
             "hosts": [
                 {
                     "address": env("APP_REDIS_URL", default=None),
