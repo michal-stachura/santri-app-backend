@@ -151,7 +151,7 @@ CHANNEL_LAYERS = {
             "hosts": [
                 {
                     "address": env("APP_REDIS_URL", default=None),
-                    "db": 1,
+                    # "db": 1,
                     "password": env("APP_REDIS_PASSWORD", default=None),
                 }
             ],
