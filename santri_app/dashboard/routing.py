@@ -1,7 +1,7 @@
 from django.urls import path
 
 
-def get_websocket_urlpatterns():
+def get_dashboard_websocket_urlpatterns():
     from . import consumers
 
     return [
