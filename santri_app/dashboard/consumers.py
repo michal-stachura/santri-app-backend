@@ -12,7 +12,7 @@ class GroupSend:
     def send(self, group_name, message):
         channel_layer = get_channel_layer()
 
-        async_to_sync(channel_layer.group_send)(group_name, message)
+        async_to_sync(channel_layer.group_send)(group_name, {"type": "dashboard.notification", "message": message})
 
 
 class DashboardConsumer(AsyncWebsocketConsumer):
@@ -34,11 +34,9 @@ class DashboardConsumer(AsyncWebsocketConsumer):
             self.scope["user"] = user
             await self.channel_layer.group_add(self.dashboard_group_name, self.channel_name)
         else:
-            print("close connection")
             self.close()
 
     async def connect(self):
-        print("connect")
         await self.accept()
 
     async def disconnect(self, close_code):
@@ -61,5 +59,9 @@ class DashboardConsumer(AsyncWebsocketConsumer):
 
     # Receive message from dashboard group
     async def dashboard_message(self, event):
+        # Send message to Websocket
+        await self.send(text_data=json.dumps(event))
+
+    async def dashboard_notification(self, event):
         # Send message to Websocket
         await self.send(text_data=json.dumps(event))

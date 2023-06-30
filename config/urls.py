@@ -31,6 +31,7 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    path("api/dashboard/", include("santri_app.dashboard.urls")),
 ]
 
 if settings.DEBUG:
