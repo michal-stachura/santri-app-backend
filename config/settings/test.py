@@ -9,7 +9,7 @@ from .base import env
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
-    "DJANGO_SECRET_KEY",
+    "APP_DJANGO_SECRET_KEY",
     default="Z92CK8uNR2MYIQHGZSJq9zaTPumqtONoK7Ipy60rxd5pYfV2UtIVBGcWK2GMs4rs",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#test-runner

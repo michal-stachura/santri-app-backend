@@ -7,7 +7,7 @@ from .base import env
 DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env(
-    "DJANGO_SECRET_KEY",
+    "APP_DJANGO_SECRET_KEY",
     default="Wg0J80NrOeSqLR4qRPrh6TVCZT765AJPlLggTw37YjFPu1dUOqPnqIjmlesO9OtR",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
@@ -62,3 +62,11 @@ INSTALLED_APPS += ["django_extensions"]  # noqa: F405
 # ------------------------------------------------------------------------------
 ENV_NAME = "local"
 CORS_ALLOWED_ORIGINS = ["http://localhost:8080"]
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("santri_app_local_redis", 6379)],
+        },
+    },
+}

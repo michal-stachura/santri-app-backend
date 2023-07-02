@@ -16,6 +16,7 @@ urlpatterns = [
     path("users/", include("santri_app.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    path("chat/", include("santri_app.chat.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
@@ -30,6 +31,7 @@ urlpatterns += [
         SpectacularSwaggerView.as_view(url_name="api-schema"),
         name="api-docs",
     ),
+    path("api/dashboard/", include("santri_app.dashboard.urls")),
 ]
 
 if settings.DEBUG:
