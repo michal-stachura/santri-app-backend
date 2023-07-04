@@ -10,6 +10,7 @@ services:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
     image: santri_app_local_django
+    restart: "no"
     container_name: santri_app_local_django
     depends_on:
       - postgres
@@ -30,6 +31,7 @@ services:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
     image: santri_app_production_postgres
+    restart: "no"
     container_name: santri_app_local_postgres
     volumes:
       - santri_app_local_postgres_data:/var/lib/postgresql/data
@@ -41,6 +43,7 @@ services:
 
   docs:
     image: santri_app_local_docs
+    restart: "no"
     container_name: santri_app_local_docs
     build:
       context: .
@@ -59,6 +62,7 @@ services:
 
   redis:
     image: redis:7
+    restart: "no"
     container_name: santri_app_local_redis
     ports:
       - "6379:6379"
